@@ -18,9 +18,21 @@ include "include/header.php";
             </h1>
 
             <?php
-            // read all from posts table
-            $query = "SELECT * FROM posts";
-            $result = mysqli_query($connection, $query);
+                if (isset($_POST["submit"])) {
+                    $search = $_POST["search"];
+                    $query = "SELECT * FROM posts WHERE post_tags LIKE '%$search%' "; //like == =
+                    $result = mysqli_query($connection, $query);
+            
+                    if (!$result) //if query failed throw the message 
+                    {
+                        die("Query Failed" . mysqli_error($connection));
+                    }
+                    $count = mysqli_num_rows($result); //check rows
+                    if ($count == 0) {
+                        echo "<h1> No Result </h1>";
+                    } 
+                    else {
+                       // read all from posts table
             while ($row = mysqli_fetch_assoc($result)) 
             {
                 $post_title = $row["post_title"];
@@ -49,7 +61,10 @@ include "include/header.php";
             <hr>
             
             <!-- end while loop -->
-            <?php } ?> 
+            <?php } } }?> 
+                    
+                
+            
 
         </div>
 
