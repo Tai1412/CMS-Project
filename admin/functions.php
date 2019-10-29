@@ -1,4 +1,12 @@
 <?php
+//confirm query
+function confirm($result)
+{
+    global $connection;
+    if (!$result) {
+        die("QUERY FAILED" . mysqli_error($connection));
+    }
+}
 //insert
 function insert_categories()
 {
@@ -18,7 +26,8 @@ function insert_categories()
     }
 }
 //findallCategories
-function findAllCategories(){
+function findAllCategories()
+{
     global $connection;
     $query = "SELECT * FROM categories";
     $result = mysqli_query($connection, $query);
@@ -34,7 +43,8 @@ function findAllCategories(){
     }
 }
 //delete
-function deleteCategories(){
+function deleteCategories()
+{
     global $connection;
     if (isset($_GET['delete'])) {
         $the_cat_id = $_GET['delete'];
